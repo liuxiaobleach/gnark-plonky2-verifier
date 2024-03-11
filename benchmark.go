@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
+	"github.com/consensys/gnark/backend"
 	"math/big"
 	"os"
 	"time"
@@ -125,7 +126,7 @@ func groth16Proof(r1cs constraint.ConstraintSystem, circuitName string, dummy bo
 	}
 
 	fmt.Println("Creating proof", time.Now())
-	proof, err := groth16.Prove(r1cs, pk, witness)
+	proof, err := groth16.Prove(r1cs, pk, witness, backend.WithIcicleAcceleration())
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
